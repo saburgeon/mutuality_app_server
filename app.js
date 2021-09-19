@@ -1,16 +1,15 @@
 const bodyParser = require("body-parser");
 const app = require('express')();
-/*const csrf = require('csurf')*/
 const cors = require('cors');
 const https = require('https');
-const fs = require('fs');
-const session = require('express-session');
+require('dotenv').config();
+
+
 
 
 
 const port = process.env.PORT || 8181;
-/*const csrfProtection = csrf({cookie:true});*/
-//
+
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -26,8 +25,6 @@ const {Sequelize} = require("sequelize");
 require("./startup/routes")(app);
 
 const httpsServer = https.createServer( app);
-
-
 
 
 

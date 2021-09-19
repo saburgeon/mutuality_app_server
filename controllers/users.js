@@ -15,12 +15,13 @@ exports.getAllUsers = (req, res, next) => {
 //Get Users by ID
 exports.getUserByID = (req, res, next) => {
   const userId = req.params.id;
-  User.findByPk(userId)
-    .then((user) => {
+  try{
+     let  user =  User.findByPk(userId);
       console.log(user);
       res.send(user);
-    })
-    .catch((err) => console.log(err));
+  } catch(e){ console.log(e)}
+
+
 };
 
 //------------------------------------------------------------Posts

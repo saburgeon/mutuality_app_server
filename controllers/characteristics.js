@@ -1,10 +1,10 @@
-const Trait = require("../models/trait");
+const Characteristics = require("../models/characteristics");
 
 //--------------------------------------------------------Gets
 
 //Get all Traits
 exports.getAllTraits = (req, res, next) => {
-  Trait.findAll()
+  Characteristics.findAll()
     .then((traits) => {
       res.send(traits);
     })
@@ -15,7 +15,7 @@ exports.getAllTraits = (req, res, next) => {
 //Get Traits by ID
 exports.getTraitByID = (req, res, next) => {
   const traitId = req.params.id;
-  Trait.findByPk(traitId)
+  Characteristics.findByPk(traitId)
     .then((trait) => {
       res.send(trait);
     })
@@ -24,7 +24,7 @@ exports.getTraitByID = (req, res, next) => {
 
 //------------------------------------------------------------Posts
 exports.postAddTrait = (req, res, next) => {
-  Trait.create({
+  Characteristics.create({
     //todo add create trait
   })
     .then((result) => {
@@ -38,12 +38,12 @@ exports.postAddTrait = (req, res, next) => {
 //------------------------------------------------------------Patch
 exports.patchEditTrait = (req, res, next) => {
   const traitId = req.params.id;
-  Trait.findByPk(traitId)
+  Characteristics.findByPk(traitId)
     .then((trait) => {
       return trait.save();
     })
     .then((result) => {
-      console.log("Trait Updated");
+      console.log("Characteristics Updated");
       res.send(result);
     })
     .catch((err) => console.log(err));
@@ -52,12 +52,12 @@ exports.patchEditTrait = (req, res, next) => {
 
 exports.postDeleteTrait = (req, res, next) => {
   const traitId = req.params.id;
-  Trait.findByPk(traitId)
+  Characteristics.findByPk(traitId)
     .then((trait) => {
       return trait.destroy();
     })
     .then((result) => {
-      console.log("Trait Deleted");
+      console.log("Characteristics Deleted");
     })
     .catch((err) => console.log(err));
 };

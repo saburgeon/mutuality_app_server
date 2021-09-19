@@ -11,21 +11,13 @@ const Note = sequelize.define('Notes', {
     },
 
     noteContactID: Sequelize.STRING,
-    noteComment: Sequelize.STRING,
-    noteDate: Sequelize.BIGINT,
-    noteIconSet: Sequelize.INTEGER,
-    noteImageOne: Sequelize.STRING,
-    noteImageTwo: Sequelize.STRING,
-    noteImageThree: Sequelize.STRING,
-    noteImageFour: Sequelize.STRING,
-    noteImageFive: Sequelize.STRING,
-    noteCreatorUID: Sequelize.STRING,
-    noteEdits: Sequelize.STRING,
+    noteEntry: Sequelize.STRING,
+    noteCategory: Sequelize.INTEGER,
+    noteTimeStamp: Sequelize.STRING,
+    noteCreator: Sequelize.STRING,
     noteTitle: Sequelize.STRING,
-    updatedAt: Sequelize.DATE,
-    createdAt:Sequelize.DATE,
-
-
+    updatedAt: Sequelize.STRING,
+    createdAt:Sequelize.STRING,
 
 
 });

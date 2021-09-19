@@ -9,17 +9,19 @@ const User = sequelize.define("Users", {
     primaryKey: true,
   },
 
-  verifyFirstUse: Sequelize.INTEGER,
+  userImage: Sequelize.STRING,
   userName: Sequelize.STRING,
   userMiddleName: Sequelize.STRING,
   userLastName: Sequelize.STRING,
-  userImage: Sequelize.STRING,
-  userPhone: Sequelize.STRING,
-  userFavoritePage: Sequelize.INTEGER,
   userEmail: Sequelize.STRING,
+  userPhone: Sequelize.STRING,
+  verifyFirstUse: Sequelize.INTEGER,
+  userFavoritePage: Sequelize.INTEGER,
   userUID: Sequelize.STRING,
   updatedAt: Sequelize.TEXT,
   createdAt: Sequelize.TEXT,
+
+
 });
 
 module.exports = User;

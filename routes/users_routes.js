@@ -9,6 +9,7 @@ const userController = require("../controllers/users");
 //Get All Users
 router.get("/all", userController.getAllUsers);
 
+
 //get user by id
 router.get("/:id", userController.getUserByID);
 

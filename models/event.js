@@ -12,19 +12,18 @@ const Event = sequelize.define('Events', {
     },
 
     eventTitle: Sequelize.STRING,
-    eventComment: Sequelize.STRING,
+    eventNotes: Sequelize.STRING,
     eventContactID: Sequelize.INTEGER,
     allDayEvent: Sequelize.INTEGER,
     eventType: Sequelize.STRING,
-    eventStart: Sequelize.BIGINT,
-    eventEnd: Sequelize.BIGINT,
+    eventStart: Sequelize.STRING,
+    eventEnd: Sequelize.STRING,
     eventLocationName: Sequelize.STRING,
     eventAddress: Sequelize.STRING,
     eventRawAddress: Sequelize.STRING,
-    eventCreatorUID: Sequelize.STRING,
-    recurrenceRule: Sequelize.STRING,
-    updatedAt: Sequelize.DATE,
-    createdAt:Sequelize.DATE,
+    eventCreator: Sequelize.STRING,
+    updatedAt: Sequelize.STRING,
+    createdAt:Sequelize.STRING,
 });
 
 module.exports = Event;

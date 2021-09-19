@@ -10,14 +10,14 @@ const Relationship = sequelize.define('Relationships', {
         primaryKey: true,
     },
 
-   relationshipType: Sequelize.STRING,
+   type: Sequelize.STRING,
     relationshipName: Sequelize.STRING,
     relationshipContactID: Sequelize.INTEGER,
     relationshipNotes: Sequelize.STRING,
     relationshipImage: Sequelize.STRING,
-    creatorUID: Sequelize.STRING,
-    updatedAt: Sequelize.DATE,
-    createdAt:Sequelize.DATE,
+    relationshipCreator: Sequelize.STRING,
+    updatedAt: Sequelize.STRING,
+    createdAt:Sequelize.STRING,
 
 
 });

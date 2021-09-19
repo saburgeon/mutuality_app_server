@@ -6,7 +6,7 @@ const usersRoutes = require('../routes/users_routes');
 const eventsRoutes = require('../routes/events_routes');
 const reconnectsRoutes = require('../routes/reconnects_routes');
 const relationshipsRoutes = require('../routes/relationships_routes');
-const traitsRoutes = require('../routes/traits_routes');
+const characteristicsRoutes = require('../routes/characteristics_routes');
 const tagsRoutes = require('../routes/tags_routes');
 const notesRoutes = require('../routes/notes_routes');
 const messagesRoutes = require('../routes/messages_routes');
@@ -21,7 +21,7 @@ module.exports = function(app) {
     app.use('/events', eventsRoutes);
     app.use('/reconnects', reconnectsRoutes);
     app.use('/relationships', relationshipsRoutes);
-    app.use('/traits', traitsRoutes);
+    app.use('/characteristics', characteristicsRoutes);
     app.use('/tags', tagsRoutes);
     app.use('/notes', notesRoutes);
     app.use('/messages', messagesRoutes);

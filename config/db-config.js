@@ -1,10 +1,10 @@
 const {Sequelize} = require("sequelize");
 
 
-const sequelize = new Sequelize("mutuality", "spurg", "sqlBoss411$", {
+const sequelize = new Sequelize("mutuality_db_app", 'armando', 'YR8&xE%W', {
     dialect: 'mysql',
     storage: "./session.sqlite",
-    host: '137.184.111.22',
+    host: "147.182.130.83",
     port: "3306",
 
 });
@@ -13,22 +13,3 @@ const sequelize = new Sequelize("mutuality", "spurg", "sqlBoss411$", {
 
 module.exports = sequelize;
 
-/*
-//Importing required dependency modules
-const mysql = require("mysql2");
-
-
-
-//local mysql db connection
-const dbConn = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASS,
-    database: process.env.DB,
-    port: process.env.SQL_DB,
-});
-
-const promiseDBConn = dbConn.promise();
-
-module.exports = promiseDBConn;
-*/

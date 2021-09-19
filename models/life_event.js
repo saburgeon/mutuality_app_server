@@ -3,23 +3,23 @@ const sequelize = require('../config/db-config');
 
 const LifeEvent = sequelize.define('LifeEvents', {
 
-    lifeEventID: {
+    lifeEventsID: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
     },
 
-    lifeEventDate: Sequelize.INTEGER,
-    lifeEventTitle: Sequelize.STRING,
-    lifeEventComment: Sequelize.STRING,
-    lifeEventCodePoint: Sequelize.INTEGER,
-    lifeEventIconFamily: Sequelize.STRING,
-    lifeEventIconPackage: Sequelize.STRING,
-    lifeEventContactID: Sequelize.INTEGER,
-    creatorUID: Sequelize.STRING,
-    updatedAt: Sequelize.DATE,
-    createdAt:Sequelize.DATE,
+    lifeEventsDate: Sequelize.STRING,
+    lifeEventsTitle: Sequelize.STRING,
+    lifeEventsComment: Sequelize.STRING,
+    lifeEventsCodePoint: Sequelize.INTEGER,
+    lifeEventsIconFamily: Sequelize.STRING,
+    lifeEventsIconPackage: Sequelize.STRING,
+    lifeEventsContactID: Sequelize.INTEGER,
+    lifeEventsCreator: Sequelize.STRING,
+    updatedAt: Sequelize.STRING,
+    createdAt:Sequelize.STRING,
 
 });
 

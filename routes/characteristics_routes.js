@@ -53,7 +53,7 @@ router.post("/add/category", async (req, res) => {
 router.post("/add/characteristic", async (req, res) => {
     //variable that change
     const data = JSON.parse(req.body.data);
-    const tableName = dbc.Traits_Table_Name;
+    const tableName = dbc.Characteristics_Table_Name;
     //constant variables
     let insertValues = Object.values(data);
     let insertKeys = Object.keys(data);
@@ -64,7 +64,7 @@ router.post("/add/characteristic", async (req, res) => {
 router.patch("/update/characteristic", async (req, res) => {
     //variable that change
     const data = JSON.parse(req.body.data);
-    const tableName = dbc.Traits_Table_Name;
+    const tableName = dbc.Characteristics_Table_Name;
     //constant variables
     let insertValues = Object.values(data);
     let insertKeys = Object.keys(data);
