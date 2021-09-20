@@ -17,6 +17,7 @@ router.get("/:id", userController.getUserByID);
 
 //-------------------------------------Posts
 
+router.post('/add', userController.postAddUser);
 //update user data
 /*
 router.post("/update", async (req, res) => {

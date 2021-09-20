@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const sequelize = require("../config/db-config");
 
 const User = sequelize.define("Users", {
+
   userID: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -18,10 +19,10 @@ const User = sequelize.define("Users", {
   verifyFirstUse: Sequelize.INTEGER,
   userFavoritePage: Sequelize.INTEGER,
   userUID: Sequelize.STRING,
-  updatedAt: Sequelize.TEXT,
-  createdAt: Sequelize.TEXT,
+  updatedAt: Sequelize.STRING,
+  createdAt: Sequelize.STRING,
 
 
-});
+}, {  timestamps: false});
 
 module.exports = User;

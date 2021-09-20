@@ -26,11 +26,10 @@ exports.getUserByID = (req, res, next) => {
 
 //------------------------------------------------------------Posts
 exports.postAddUser = (req, res, next) => {
-  User.create({
-    //todo add create user
-  })
+    const data = JSON.parse(req.body.data);
+  User.create(data)
     .then((result) => {
-      console.log(result);
+        res.status(201).send(JSON.stringify(result));
     })
     .catch((err) => {
       console.log(err);
