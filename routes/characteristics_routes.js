@@ -16,6 +16,8 @@ router.patch("/add",characteristicsController.postAddCharacteristics);
 
 router.post("/update", characteristicsController.patchEditCharacteristic);
 
+router.post("/bulkUpdate", characteristicsController.patchEditBulkCharacteristics);
+
 //----------------------------------------------------------------------------------DELETE REQUESTS
 
 router.delete("/delete", characteristicsController.postDeleteCharacteristic);

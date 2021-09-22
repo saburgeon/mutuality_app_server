@@ -1,5 +1,7 @@
 const Characteristics = require("../models/characteristics");
-
+const sequelize = require("../config/db-config");
+const {where} = require("sequelize");
+const { Op } = require("sequelize");
 //--------------------------------------------------------Gets
 
 //Get all Characteristics
@@ -51,6 +53,29 @@ exports.patchEditCharacteristic = async (req, res) => {
         console.log(e)
     }
 };
+
+exports.patchEditBulkCharacteristics = async (req, res) => {
+    const data = JSON.parse(req.body.data);
+const extra = JSON.parse(req.body.extra);
+
+    try {
+        await Characteristics.update({
+            characteristicsCategory: extra.newCategory
+        }, {
+            where: {
+                characteristicID: data.characteristicContactID,
+                characteristicCategory: data.characteristicCategory
+            }
+        });
+
+        console.log("Characteristics Updated");
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
+};
+
 //------------------------------------------------------------Delete
 
 exports.postDeleteCharacteristic = async (req, res) => {

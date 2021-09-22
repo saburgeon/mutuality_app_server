@@ -20,7 +20,7 @@ require("./startup/routes")(app);
 const httpServer = http.createServer( app);
 
 //Sync models
-sequelize.sync({force: true}).then(result => {
+sequelize.sync().then(result => {
     //Start server
     httpServer.listen(port, () => {
         console.log(`Mutuality in HTTP is listening on port: ${port}`);
