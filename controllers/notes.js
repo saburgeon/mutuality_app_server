@@ -1,187 +1,66 @@
 const Note = require("../models/note");
-const Contact = require("../models/contact");
-const sequelize = require("sequelize");
-const { Op } = require("sequelize");
-
 //--------------------------------------------------------Gets
 
-//Get all Notes
-exports.getAllNotes = (req, res, next) => {
-  Note.findAll()
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+
+exports.getAllNotes = async (req, res) => {
+  try {
+    let notes = await Note.findAll();
+    res.status(200).send(notes);
+  } catch (e) {
+    res.sendStatus(404)
+    console.log(e)
+  }
 };
 
 //Get Notes by ID
-exports.getNoteByID = (req, res, next) => {
+exports.getNoteByID = async (req, res) => {
   const noteId = req.params.id;
-  Note.findByPk(noteId)
-    .then((note) => {
-      res.send(note);
-    })
-    .catch((err) => console.log(err));
+  try {
+    let note = await Note.findByPk(noteId);
+    res.status(200).send(note);
+  } catch (e) {
+    res.sendStatus(404)
+    console.log(e)
+  }
 };
 
-//Get Home Page Favorite Notes
-exports.getHomePageNotes = (req, res, next) => {
-  Note.findAll({ where: { noteIconSet: 1 }, include: [Contact] })
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-//Get all Notes
-exports.getAllContactNotes = (req, res, next) => {
-  Note.findAll({
-    where: { noteContactID: req.params.id, noteIconSet: { [Op.not]: 6 } },
-    order: [["noteDate", "ASC"]],
-    include: [Contact],
-  })
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-//Get Favorites notes
-exports.getFavoriteNotes = (req, res, next) => {
-  const contactId = req.params.id;
-  Note.findAll({
-    where: { noteIconSet: 1, noteContactID: contactId },
-    order: [["noteDate", "ASC"]],
-    include: [Contact],
-  })
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-//Get important notes
-exports.getImportantNotes = (req, res, next) => {
-  const contactId = req.params.id;
-  Note.findAll({
-    where: { noteIconSet: 2, noteContactID: contactId },
-    order: [["noteDate", "ASC"]],
-    include: [Contact],
-  })
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-//Get It Matters notes
-exports.getItMattersNotes = (req, res, next) => {
-  const contactId = req.params.id;
-  Note.findAll({
-    where: { noteIconSet: 3, noteContactID: contactId },
-    order: [["noteDate", "ASC"]],
-    include: [Contact],
-  })
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-//Get Good To Know notes
-exports.getGoodToKnowNotes = (req, res, next) => {
-  const contactId = req.params.id;
-  Note.findAll({
-    where: { noteIconSet: 4, noteContactID: contactId },
-    order: [["noteDate", "ASC"]],
-    include: [Contact],
-  })
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-//Get Not Sure notes
-exports.getNotSureNotes = (req, res, next) => {
-  const contactId = req.params.id;
-  Note.findAll({
-    where: { noteIconSet: 5, noteContactID: contactId },
-    order: [["noteDate", "ASC"]],
-    include: [Contact],
-  })
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-//Get Archived notes
-exports.getArchivedNotes = (req, res, next) => {
-  const contactId = req.params.id;
-  Note.findAll({
-    where: { noteIconSet: 6, noteContactID: contactId },
-    order: [["noteDate", "ASC"]],
-    include: [Contact],
-  })
-    .then((notes) => {
-      res.send(notes);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
 //------------------------------------------------------------Posts
-exports.postAddNote = (req, res, next) => {
+
+exports.postAddNote = (req, res) => {
   const data = JSON.parse(req.body.data);
-  Note.create(data)
-    .then((result) => {
-      res.status(201).send(JSON.stringify(result));
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+
+  try {
+    Note.create(data);
+    res.sendStatus(200)
+  } catch (e) {
+    res.sendStatus(404)
+    console.log(e)
+  }
 };
 
 //------------------------------------------------------------Patch
-exports.patchEditNote = (req, res, next) => {
+exports.patchEditNote = async (req, res) => {
   const data = JSON.parse(req.body.data);
-  Note.findByPk(data.noteID)
-    .then((note) => {
-      return note.update(data);
-    })
-    .then((result) => {
-      res.status(200).send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(400);
-    });
+  try {
+    let note = await Note.findByPk(data.noteID);
+    await note.update(data);
+    console.log("Note Updated");
+    res.sendStatus(200);
+  } catch (e) {
+    res.sendStatus(404)
+    console.log(e)
+  }
 };
 //------------------------------------------------------------Delete
 
-exports.postDeleteNote = (req, res, next) => {
+exports.postDeleteNote = async (req, res) => {
   const noteId = req.params.id;
-  Note.findByPk(noteId)
-    .then((note) => {
-      return note.destroy();
-    })
-    .then((result) => {
-      console.log("Note Deleted");
-    })
-    .catch((err) => console.log(err));
+  try {
+    let note = await Note.findByPk(noteId);
+    await note.destroy();
+    res.sendStatus(200);
+  } catch (e) {
+    res.sendStatus(404)
+    console.log(e)
+  }
 };

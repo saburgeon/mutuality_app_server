@@ -1,33 +1,27 @@
 const express = require('express');
-const query = require("../config/queries");
-const db = require("../config/db-config");
-const dbc = require("../config/db_constants");
 const router = express.Router();
 const lifeEventController = require('../controllers/life_events');
 
 
-//-------------------------------------------------------Gets
+//------------------------------------------------------------------------------------GET REQUESTS
+
 // get all life events
-router.get("/all/years", lifeEventController.getAllLifeEventsYears);
+router.get("/all", lifeEventController.getAllLifeEvents);
 
-router.get("/all/events/:yearStart/:yearEnd", lifeEventController.getAllLifeEventsEvents);
+//Get life event by id
+router.get("/:id", lifeEventController.getLifeEventByID);
 
-
-//Get Contact's life event years
-router.get("/years/:id", lifeEventController.getContactLifeEventsYears);
-
-
-router.get("/events/:id/:yearStart/:yearEnd", lifeEventController.getContactLifeEventsEvents);
-
-
-//-------------------------------------------------------Posts
+//------------------------------------------------------------------------------------POSTS REQUESTS
 
 router.post("/add", lifeEventController.postAddLifeEvent);
 
-//-------------------------------------------------------Patch
+//----------------------------------------------------------------------------------PATCH REQUESTS
 
 router.patch("/update", lifeEventController.patchEditLifeEvent);
 
+//----------------------------------------------------------------------------------DELETE REQUESTS
+
+router.delete('/delete', lifeEventController.postDeleteLifeEvent);
 
 
 

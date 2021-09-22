@@ -1,3 +1,4 @@
+
 module.exports = {
     apps: [
         {
@@ -6,9 +7,8 @@ module.exports = {
             watch: ".",
             env: {
                 NODE_ENV: "development",
-                PORT: 3306,
-                HOST: "147.182.130.83",
-                USER: "armando",
+                PORT:8082,
+                USER: "armandolocal",
                 PASS: "YR8&xE%W",
                 DB: "mutuality_app_db",
                 SQL_DB: 3306,

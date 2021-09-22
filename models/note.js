@@ -20,6 +20,6 @@ const Note = sequelize.define('Notes', {
     createdAt:Sequelize.STRING,
 
 
-});
+}, {  timestamps: false});
 
 module.exports = Note;

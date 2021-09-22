@@ -1,13 +1,15 @@
 const {Sequelize} = require("sequelize");
 
 
-const sequelize = new Sequelize("mutuality_db_app", 'armando', 'YR8&xE%W', {
+const sequelize = new Sequelize("mutuality_db_app", 'armandolocal', 'YR8&xE%W', {
     dialect: 'mysql',
     storage: "./session.sqlite",
-    host: "147.182.130.83",
+    host: "localhost",
     port: "3306",
 
-});
+    dialectOptions: {
+        socketPath: "/var/run/mysqld/mysqld.sock"
+    },});
 
 
 

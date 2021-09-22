@@ -64,6 +64,6 @@ contactID: {
     twitch: Sequelize.STRING,
 
 
-});
+}, {  timestamps: false});
 
 module.exports = Contact;

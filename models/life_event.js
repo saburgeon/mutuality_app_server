@@ -21,6 +21,6 @@ const LifeEvent = sequelize.define('LifeEvents', {
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
 
-});
+}, {  timestamps: false});
 
 module.exports = LifeEvent;

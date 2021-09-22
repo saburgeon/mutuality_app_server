@@ -1,62 +1,68 @@
 const Relationship = require("../models/relationship");
+const Characteristics = require("../models/characteristics");
 
 //--------------------------------------------------------Gets
 
 //Get all Relationships
-exports.getAllRelationships = (req, res, next) => {
-  Relationship.findAll()
-    .then((relationships) => {
-      res.send(relationships);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+exports.getAllRelationships = async (req, res) => {
+    try {
+        let relationships = await Relationship.findAll();
+        res.status(200).send(relationships);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 //Get Relationships by ID
-exports.getRelationshipByID = (req, res, next) => {
+exports.getRelationshipByID =async  (req, res) => {
   const relationshipId = req.params.id;
-  Relationship.findByPk(relationshipId)
-    .then((relationship) => {
-      console.log(relationship);
-      res.send(relationship);
-    })
-    .catch((err) => console.log(err));
+    try {
+        let relationship = await Relationship.findByPk(relationshipId);
+        res.status(200).send(relationship);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 
 //------------------------------------------------------------Posts
-exports.postAddRelationship = (req, res, next) => {
-  Relationship.create({
-    //todo add create relationship
-  })
-    .then((result) => {})
-    .catch((err) => {
-      console.log(err);
-    });
+exports.postAddRelationship = (req, res) => {
+    const data = JSON.parse(req.body.data);
+
+    try {
+        Relationship.create(data);
+        res.sendStatus(200)
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 
 //------------------------------------------------------------Patch
-exports.patchEditRelationship = (req, res, next) => {
-  const relationshipId = req.params.id;
-  Relationship.findByPk(relationshipId)
-    .then((relationship) => {
-      return relationship.save();
-    })
-    .then((result) => {
-      console.log("Relationship Updated");
-      res.send(result);
-    })
-    .catch((err) => console.log(err));
+exports.patchEditRelationship = async (req, res) => {
+    const data = JSON.parse(req.body.data);
+    try {
+        let relationship = await Characteristics.findByPk(data.relationshipID);
+        await relationship.update(data);
+        console.log("Relationship Updated");
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 //------------------------------------------------------------Delete
 
-exports.postDeleteRelationship = (req, res, next) => {
+exports.postDeleteRelationship = async (req, res) => {
   const relationshipId = req.params.id;
-  Relationship.findByPk(relationshipId)
-    .then((relationship) => {
-      return relationship.destroy();
-    })
-    .then((result) => {
-      console.log("Relationship Deleted");
-    })
-    .catch((err) => console.log(err));
+
+    try {
+        let relationship = await Relationship.findByPk(relationshipId);
+        await relationship.destroy();
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
+
 };

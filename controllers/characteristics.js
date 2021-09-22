@@ -2,62 +2,66 @@ const Characteristics = require("../models/characteristics");
 
 //--------------------------------------------------------Gets
 
-//Get all Traits
-exports.getAllTraits = (req, res, next) => {
-  Characteristics.findAll()
-    .then((traits) => {
-      res.send(traits);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+//Get all Characteristics
+exports.getAllCharacteristics = async (req, res) => {
+    try {
+        let characteristics = await Characteristics.findAll();
+        res.status(200).send(characteristics);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
-//Get Traits by ID
-exports.getTraitByID = (req, res, next) => {
-  const traitId = req.params.id;
-  Characteristics.findByPk(traitId)
-    .then((trait) => {
-      res.send(trait);
-    })
-    .catch((err) => console.log(err));
+
+//Get Characteristic by ID
+exports.getCharacteristicsByID = async (req, res) => {
+    const characteristicID = req.params.id;
+    try {
+        let characteristic = await Characteristics.findByPk(characteristicID);
+        res.status(200).send(characteristic);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 
 //------------------------------------------------------------Posts
-exports.postAddTrait = (req, res, next) => {
-  Characteristics.create({
-    //todo add create trait
-  })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+exports.postAddCharacteristics = (req, res) => {
+    const data = JSON.parse(req.body.data);
+
+    try {
+        Characteristics.create(data);
+        res.sendStatus(200)
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 
 //------------------------------------------------------------Patch
-exports.patchEditTrait = (req, res, next) => {
-  const traitId = req.params.id;
-  Characteristics.findByPk(traitId)
-    .then((trait) => {
-      return trait.save();
-    })
-    .then((result) => {
-      console.log("Characteristics Updated");
-      res.send(result);
-    })
-    .catch((err) => console.log(err));
+exports.patchEditCharacteristic = async (req, res) => {
+    const data = JSON.parse(req.body.data);
+    try {
+        let characteristic = await Characteristics.findByPk(data.characteristicsID);
+        await characteristic.update(data);
+        console.log("Characteristic Updated");
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 //------------------------------------------------------------Delete
 
-exports.postDeleteTrait = (req, res, next) => {
-  const traitId = req.params.id;
-  Characteristics.findByPk(traitId)
-    .then((trait) => {
-      return trait.destroy();
-    })
-    .then((result) => {
-      console.log("Characteristics Deleted");
-    })
-    .catch((err) => console.log(err));
+exports.postDeleteCharacteristic = async (req, res) => {
+    const characteristicId = req.params.id;
+    try {
+        let characteristic = await Characteristics.findByPk(characteristicId);
+        await characteristic.destroy();
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
+
 };

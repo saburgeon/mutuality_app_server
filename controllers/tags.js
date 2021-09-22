@@ -1,79 +1,68 @@
 const Tag = require("../models/tag");
+const Characteristics = require("../models/characteristics");
 
 //--------------------------------------------------------Gets
 
 //Get all Tags
-exports.getAllTags = (req, res, next) => {
-  Tag.findAll()
-    .then((tags) => {
-      res.send(tags);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+exports.getAllTags = async (req, res) => {
+    try {
+        let tags = await Tag.findAll();
+        res.status(200).send(tags);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 //Get Tags by ID
-exports.getTagByID = (req, res, next) => {
-  const tagId = req.params.id;
-  Tag.findByPk(tagId)
-    .then((tag) => {
-      console.log(tag);
-      res.send(tag);
-    })
-    .catch((err) => console.log(err));
+exports.getTagByID = async (req, res) => {
+    const tagId = req.params.id;
+    try {
+        let tag = await Tag.findByPk(tagId);
+        res.status(200).send(tag);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 
-//Get Tags by contact ID
-exports.getContactTags = (req, res, next) => {
-  Tag.findAll({
-    where: { tagsContactID: req.params.id },
-  })
-    .then((tag) => {
-      res.send(tag);
-    })
-    .catch((err) => console.log(err));
-};
 
 //------------------------------------------------------------Posts
 exports.postAddTag = (req, res, next) => {
-  const data = JSON.parse(req.body.data);
-  console.log(data);
-  Tag.create({
-    tagsContactID: data.tagsContactID,
-    tagsEntry: data.tagsEntry,
-  })
-    .then((result) => {
-      res.status(201).send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    const data = JSON.parse(req.body.data);
+
+    try {
+        Tag.create(data);
+        res.sendStatus(200)
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 
 //------------------------------------------------------------Patch
-exports.patchEditTag = (req, res, next) => {
-  const data = JSON.parse(req.body.data);
+exports.patchEditTag = async (req, res) => {
+    const data = JSON.parse(req.body.data);
 
-  Tag.findByPk(data.tagsID)
-    .then((tag) => {
-      return tag.update(data);
-    })
-    .then((result) => {
-      console.log("Tag Updated");
-      res.send(result);
-    })
-    .catch((err) => console.log(err));
+    try {
+        let tag = await Tag.findByPk(data.tagsID);
+        await tag.update(data);
+        console.log("Tag Updated");
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };
 //------------------------------------------------------------Delete
 
-exports.postDeleteTag = (req, res, next) => {
-  const tagId = req.params.id;
-  Tag.findByPk(tagId)
-    .then((tag) => {
-      return tag.destroy();
-    })
-    .then((result) => {
-      console.log("Tag Deleted");
-    })
-    .catch((err) => console.log(err));
+exports.postDeleteTag = async (req, res) => {
+    const tagId = req.params.id;
+    try {
+        let tag = await Tag.findByPk(tagId);
+        await tag.destroy();
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
 };

@@ -20,6 +20,6 @@ const Relationship = sequelize.define('Relationships', {
     createdAt:Sequelize.STRING,
 
 
-});
+}, {  timestamps: false});
 
 module.exports = Relationship;

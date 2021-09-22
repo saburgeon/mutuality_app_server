@@ -18,6 +18,6 @@ const Characteristics = sequelize.define('Characteristics', {
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
 
-});
+}, {  timestamps: false});
 
 module.exports = Characteristics;

@@ -5,19 +5,23 @@ const router = express.Router();
 const dbc = require('../config/db_constants');
 const tagsController = require('../controllers/tags');
 
-//-----------------------------------Gets
+//------------------------------------------------------------------------------------GET REQUESTS
 
-//Get contact tags
-router.get("/contact/:id", tagsController.getContactTags);
+router.get('/all', tagsController.getAllTags);
 
+router.get("/id", tagsController.getTagByID);
 
-
-//-----------------------------------Posts
+//------------------------------------------------------------------------------------POSTS REQUESTS
 
 router.post("/add", tagsController.postAddTag);
 
-//
+//----------------------------------------------------------------------------------PATCH REQUESTS
+
 router.patch("/update", tagsController.patchEditTag);
+
+//----------------------------------------------------------------------------------DELETE REQUESTS
+
+router.delete('/delete', tagsController.postDeleteTag);
 
 
 

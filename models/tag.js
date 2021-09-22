@@ -18,6 +18,6 @@ const Tag = sequelize.define('Tags', {
     createdAt:Sequelize.STRING,
 
 
-});
+}, {  timestamps: false});
 
 module.exports = Tag;
