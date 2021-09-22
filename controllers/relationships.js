@@ -41,7 +41,11 @@ exports.postAddRelationship = (req, res) => {
 exports.patchEditRelationship = async (req, res) => {
     const data = JSON.parse(req.body.data);
     try {
-        let relationship = await Relationship.findByPk(data.relationshipID);
+        let relationship = await Relationship.findOne({
+            where: {
+                relationshipContactID: data.relationshipContactID,
+                localDatabaseID: data.localDatabaseID, relationshipCreator: data.relationshipCreator
+            }});
         await relationship.update(data);
         console.log("Relationship Updated");
         res.sendStatus(200);

@@ -44,7 +44,12 @@ exports.postAddCharacteristics = (req, res) => {
 exports.patchEditCharacteristic = async (req, res) => {
     const data = JSON.parse(req.body.data);
     try {
-        let characteristic = await Characteristics.findByPk(data.characteristicsID);
+        let characteristic = await Characteristics.findOne({
+            where: {
+                characteristicContactID: data.characteristicContactID,
+                localDatabaseID: data.localDatabaseID,
+                characteristicCreator: data.characteristicCreator
+            }});
         await characteristic.update(data);
         console.log("Characteristic Updated");
         res.sendStatus(200);
@@ -63,8 +68,9 @@ const extra = JSON.parse(req.body.extra);
             characteristicsCategory: extra.newCategory
         }, {
             where: {
-                characteristicID: data.characteristicContactID,
-                characteristicCategory: data.characteristicCategory
+                characteristicContactID: data.characteristicContactID,
+                characteristicCategory: data.characteristicCategory,
+                localDatabaseID: data.localDatabaseID
             }
         });
 

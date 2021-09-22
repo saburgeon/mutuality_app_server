@@ -3,7 +3,7 @@ const sequelize = require('../config/db-config');
 
 const Message = sequelize.define('Messages', {
 
-    messageID: {
+    id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,

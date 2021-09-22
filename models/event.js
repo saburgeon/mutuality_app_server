@@ -24,6 +24,7 @@ const Event = sequelize.define('Events', {
     eventCreator: Sequelize.STRING,
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
+    localDatabaseID: Sequelize.INTEGER
 }, {  timestamps: false});
 
 module.exports = Event;

@@ -13,11 +13,11 @@ router.get("/:id", relationshipsController.getRelationshipByID);
 
 //------------------------------------------------------------------------------------POSTS REQUESTS
 
-router.patch("/add",relationshipsController.postAddRelationship);
+router.post("/add",relationshipsController.postAddRelationship);
 
 //----------------------------------------------------------------------------------PATCH REQUESTS
 
-router.post("/update", relationshipsController.patchEditRelationship);
+router.patch("/update", relationshipsController.patchEditRelationship);
 
 //----------------------------------------------------------------------------------DELETE REQUESTS
 

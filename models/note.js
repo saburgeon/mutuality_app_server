@@ -18,6 +18,7 @@ const Note = sequelize.define('Notes', {
     noteTitle: Sequelize.STRING,
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
+    localDatabaseID: Sequelize.INTEGER
 
 
 }, {  timestamps: false});

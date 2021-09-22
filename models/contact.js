@@ -62,6 +62,7 @@ contactID: {
     snapchat: Sequelize.STRING,
     medium: Sequelize.STRING,
     twitch: Sequelize.STRING,
+    localDatabaseID: Sequelize.INTEGER
 
 
 }, {  timestamps: false});

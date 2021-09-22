@@ -44,7 +44,11 @@ exports.postAddContact = async (req, res) => {
 exports.patchEditContact = async (req, res) => {
     const data = JSON.parse(req.body.data);
     try {
-        let contact = await Contact.findByPk(data.contactID);
+        let contact = await Contact.findOne({
+            where: {
+               contactCreator: data.contactCreator,
+                localDatabaseID: data.localDatabaseID,
+            }});
         await contact.update(data);
         console.log("Contact Updated");
         res.sendStatus(200);

@@ -42,7 +42,11 @@ exports.postAddNote = (req, res) => {
 exports.patchEditNote = async (req, res) => {
   const data = JSON.parse(req.body.data);
   try {
-    let note = await Note.findByPk(data.noteID);
+    let note = await Note.findOne({
+      where: {
+        noteContactID: data.noteContactID,
+        localDatabaseID: data.localDatabaseID, noteCreator: data.noteCreator
+      }});
     await note.update(data);
     console.log("Note Updated");
     res.sendStatus(200);

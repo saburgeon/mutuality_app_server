@@ -45,7 +45,7 @@ exports.postAddUser = (req, res) => {
 exports.patchEditUser = async (req, res) => {
   const data = JSON.parse(req.body.data);
     try {
-        let user = await User.findByPk(data.userID);
+        let user = await User.findByPk(data.userUID);
         await user.update(data);
         console.log("User Updated");
         res.sendStatus(200);

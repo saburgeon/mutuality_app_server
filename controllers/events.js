@@ -46,7 +46,11 @@ exports.postAddEvent = (req, res) => {
 exports.patchEditEvent = async (req, res) => {
     const data = JSON.parse(req.body.data);
     try {
-        let event = await Event.findByPk(data.eventID);
+        let event = await Event.findOne({
+            where: {
+               eventContactID: data.eventContactID,
+                localDatabaseID: data.localDatabaseID, eventCreator: data.eventCreator
+            }});
         await event.update(data);
         console.log("Event Updated");
         res.sendStatus(200);

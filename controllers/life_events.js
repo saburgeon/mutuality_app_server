@@ -43,7 +43,11 @@ exports.postAddLifeEvent = (req, res) => {
 exports.patchEditLifeEvent =  async (req, res)=> {
     const data = JSON.parse(req.body.data);
     try {
-        let lifeEvent = await LifeEvent.findByPk(data.lifeEventsID);
+        let lifeEvent = await LifeEvent.findOne({
+            where: {
+                lifeEventContactID: data.lifeEventContactID,
+                localDatabaseID: data.localDatabaseID, lifeEventCreator: data.lifeEventCreator
+            }});
         await lifeEvent.update(data);
         console.log("Life Event Updated");
         res.sendStatus(200);

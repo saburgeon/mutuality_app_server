@@ -44,7 +44,11 @@ exports.patchEditTag = async (req, res) => {
     const data = JSON.parse(req.body.data);
 
     try {
-        let tag = await Tag.findByPk(data.tagsID);
+        let tag = await Tag.findOne({
+            where: {
+                tagContactID: data.tagContactID,
+                localDatabaseID: data.localDatabaseID, tagCreator: data.tagCreator
+            }});
         await tag.update(data);
         console.log("Tag Updated");
         res.sendStatus(200);
