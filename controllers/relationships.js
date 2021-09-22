@@ -1,5 +1,4 @@
-const Relationship = require("../models/relationship");
-const Characteristics = require("../models/characteristics");
+const Relationship = require("../models/relationships");
 
 //--------------------------------------------------------Gets
 
@@ -42,7 +41,7 @@ exports.postAddRelationship = (req, res) => {
 exports.patchEditRelationship = async (req, res) => {
     const data = JSON.parse(req.body.data);
     try {
-        let relationship = await Characteristics.findByPk(data.relationshipID);
+        let relationship = await Relationship.findByPk(data.relationshipID);
         await relationship.update(data);
         console.log("Relationship Updated");
         res.sendStatus(200);
