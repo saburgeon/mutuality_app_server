@@ -11,7 +11,7 @@ const userController = require("../controllers/users");
 router.get("/all", userController.getAllUsers);
 
 //get user by id
-router.get("/:id", userController.getUserByID);
+router.get("/:id", userController.getUserByUID);
 
 //------------------------------------------------------------Posts
 

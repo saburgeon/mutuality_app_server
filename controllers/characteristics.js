@@ -4,10 +4,16 @@ const {where} = require("sequelize");
 const { Op } = require("sequelize");
 //--------------------------------------------------------Gets
 
-//Get all Characteristics
+//Get all Characteristics for user
 exports.getAllCharacteristics = async (req, res) => {
+     const data = JSON.parse(req.body.data);
     try {
-        let characteristics = await Characteristics.findAll();
+        let characteristics = await Characteristics.findAll(
+            {
+                where: {
+                    characteristicCreator: data.userUID
+                }
+            });
         res.status(200).send(characteristics);
     } catch (e) {
         res.sendStatus(404)
@@ -46,7 +52,6 @@ exports.patchEditCharacteristic = async (req, res) => {
     try {
         let characteristic = await Characteristics.findOne({
             where: {
-                characteristicContactID: data.characteristicContactID,
                 localDatabaseID: data.localDatabaseID,
                 characteristicCreator: data.characteristicCreator
             }});
@@ -68,7 +73,6 @@ const extra = JSON.parse(req.body.extra);
             characteristicsCategory: extra.newCategory
         }, {
             where: {
-                characteristicContactID: data.characteristicContactID,
                 characteristicCategory: data.characteristicCategory,
                 localDatabaseID: data.localDatabaseID
             }
@@ -85,9 +89,13 @@ const extra = JSON.parse(req.body.extra);
 //------------------------------------------------------------Delete
 
 exports.postDeleteCharacteristic = async (req, res) => {
-    const characteristicId = req.params.id;
+    const data = JSON.parse(req.body.data);
     try {
-        let characteristic = await Characteristics.findByPk(characteristicId);
+        let characteristic = await Characteristics.findOne({
+            where: {
+                localDatabaseID: data.localDatabaseID,
+                characteristicCreator: data.characteristicCreator
+            }});
         await characteristic.destroy();
         res.sendStatus(200);
     } catch (e) {

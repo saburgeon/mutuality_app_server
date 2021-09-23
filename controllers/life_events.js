@@ -3,8 +3,15 @@ const LifeEvent = require('../models/life_event');
 
 //Get all LifeEvents
 exports.getAllLifeEvents = async (req, res) => {
+    const data = JSON.parse(req.body.data);
     try {
-        let lifeEvents = await LifeEvent.findAll();
+        let lifeEvents = await LifeEvent.findAll(
+            {
+                where: {
+                    lifeEventCreator: data.userUID
+                }
+            }
+        );
         res.status(200).send(lifeEvents);
     } catch (e) {
         res.sendStatus(404)
@@ -14,7 +21,7 @@ exports.getAllLifeEvents = async (req, res) => {
 
 
 //Get LifeEvents by event ID
-exports.getLifeEventByID = async  (req, res) => {
+exports.getLifeEventByID = async (req, res) => {
     const lifeEventId = req.params.id;
 
     try {
@@ -40,14 +47,16 @@ exports.postAddLifeEvent = (req, res) => {
 }
 
 //------------------------------------------------------------Patch
-exports.patchEditLifeEvent =  async (req, res)=> {
+exports.patchEditLifeEvent = async (req, res) => {
     const data = JSON.parse(req.body.data);
     try {
-        let lifeEvent = await LifeEvent.findOne({
-            where: {
-                lifeEventContactID: data.lifeEventContactID,
-                localDatabaseID: data.localDatabaseID, lifeEventCreator: data.lifeEventCreator
-            }});
+        let lifeEvent = await LifeEvent.findOne(
+            {
+                where: {
+                    localDatabaseID: data.localDatabaseID,
+                    lifeEventCreator: data.lifeEventCreator
+                }
+            });
         await lifeEvent.update(data);
         console.log("Life Event Updated");
         res.sendStatus(200);
@@ -61,9 +70,15 @@ exports.patchEditLifeEvent =  async (req, res)=> {
 //------------------------------------------------------------Delete
 
 exports.postDeleteLifeEvent = async (req, res) => {
-    const lifeEventId = req.params.id;
+    const data = JSON.parse(req.body.data);
     try {
-        let lifeEvent = await LifeEvent.findByPk(lifeEventId);
+        let lifeEvent = await LifeEvent.findOne(
+            {
+                where: {
+                    localDatabaseID: data.localDatabaseID,
+                    lifeEventCreator: data.lifeEventCreator
+                }
+            });
         await lifeEvent.destroy();
         res.sendStatus(200);
     } catch (e) {

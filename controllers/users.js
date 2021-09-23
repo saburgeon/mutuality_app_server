@@ -14,11 +14,16 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 //Get Users by ID
-exports.getUserByID = async (req, res) => {
-  const userId = req.params.id;
+exports.getUserByUID = async (req, res) => {
+  const UID = req.params.uid;
 
     try {
-        let user = await User.findByPk(userId);
+        let user = await User.findOne(
+            {
+                where: {
+                    userUID: UID
+                }
+            });
         res.status(200).send(user);
     } catch (e) {
         res.sendStatus(404)
@@ -45,7 +50,12 @@ exports.postAddUser = (req, res) => {
 exports.patchEditUser = async (req, res) => {
   const data = JSON.parse(req.body.data);
     try {
-        let user = await User.findByPk(data.userUID);
+        let user = await User.findOne(
+            {
+                where: {
+                    userUID: data.userUID
+                }
+            });
         await user.update(data);
         console.log("User Updated");
         res.sendStatus(200);
@@ -56,11 +66,16 @@ exports.patchEditUser = async (req, res) => {
 };
 //------------------------------------------------------------Delete
 
-exports.postDeleteUser = async (req, res, next) => {
-  const userId = req.params.id;
+exports.postDeleteUser = async (req, res) => {
+    const data = JSON.parse(req.body.data);
 
     try {
-        let user = await User.findByPk(userId);
+        let user = await User.findOne(
+            {
+                where: {
+                    userUID: data.userUID
+                }
+            });
         await user.destroy();
         res.sendStatus(200);
     } catch (e) {

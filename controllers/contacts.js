@@ -2,10 +2,16 @@ const Contact = require("../models/contact");
 
 //--------------------------------------------------------Gets
 
-//Get all Contacts
+//Get all Contacts for user
 exports.getAllContacts = async (req, res) => {
+    const data = JSON.parse(req.body.data);
     try {
-        let contacts = await Contact.findAll();
+        let contacts = await Contact.findAll(
+            {
+                where: {
+                    contactCreator: data.userUID
+                }
+            });
         res.status(200).send(contacts);
     } catch (e) {
         res.sendStatus(404)
@@ -60,10 +66,14 @@ exports.patchEditContact = async (req, res) => {
 //------------------------------------------------------------Delete
 
 exports.postDeleteContact = async (req, res) => {
-    const contactId = req.params.id;
+    const data = JSON.parse(req.body.data);
 
     try {
-        let contact = await Contact.findByPk(contactId);
+        let contact = await Contact.findOne({
+            where: {
+                contactCreator: data.contactCreator,
+                localDatabaseID: data.localDatabaseID,
+            }});
         await contact.destroy();
         res.sendStatus(200);
     } catch (e) {

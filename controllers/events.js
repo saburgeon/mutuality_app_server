@@ -1,14 +1,19 @@
 const Event = require("../models/event");
-const Contact = require("../models/contact");
-const {Op} = require("sequelize");
-const Characteristics = require("../models/characteristics");
+
 
 //--------------------------------------------------------Gets
 
-//Get all Events
+//Get all Events for user
 exports.getAllEvents = async (req, res) => {
+    const data = JSON.parse(req.body.data);
     try {
-        let events = await Event.findAll();
+        let events = await Event.findAll(
+            {
+                where: {
+                    eventCreator: data.userUID
+                }
+            }
+        );
         res.status(200).send(events);
     } catch (e) {
         res.sendStatus(404)
@@ -46,11 +51,13 @@ exports.postAddEvent = (req, res) => {
 exports.patchEditEvent = async (req, res) => {
     const data = JSON.parse(req.body.data);
     try {
-        let event = await Event.findOne({
-            where: {
-               eventContactID: data.eventContactID,
-                localDatabaseID: data.localDatabaseID, eventCreator: data.eventCreator
-            }});
+        let event = await Event.findOne(
+            {
+                where: {
+                    localDatabaseID: data.localDatabaseID,
+                    eventCreator: data.eventCreator
+                }
+            });
         await event.update(data);
         console.log("Event Updated");
         res.sendStatus(200);
@@ -62,10 +69,16 @@ exports.patchEditEvent = async (req, res) => {
 //------------------------------------------------------------Delete
 
 exports.postDeleteEvent = async (req, res) => {
-    const eventId = req.params.id;
+    const data = JSON.parse(req.body.data);
 
     try {
-        let event = await Event.findByPk(eventId);
+        let event = await Event.findOne(
+            {
+                where: {
+                    localDatabaseID: data.localDatabaseID,
+                    eventCreator: data.eventCreator
+                }
+            });
         await event.destroy();
         res.sendStatus(200);
     } catch (e) {

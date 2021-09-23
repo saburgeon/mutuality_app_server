@@ -2,16 +2,23 @@ const Relationship = require("../models/relationships");
 
 //--------------------------------------------------------Gets
 
-//Get all Relationships
+//Get all Relationships for user
 exports.getAllRelationships = async (req, res) => {
+    const data = JSON.parse(req.body.data);
     try {
-        let relationships = await Relationship.findAll();
+        let relationships = await Relationship.findAll(
+            {
+                where: {
+                    relationshipCreator: data.userUID
+                }
+            });
         res.status(200).send(relationships);
     } catch (e) {
         res.sendStatus(404)
         console.log(e)
     }
 };
+
 //Get Relationships by ID
 exports.getRelationshipByID =async  (req, res) => {
   const relationshipId = req.params.id;
@@ -43,8 +50,8 @@ exports.patchEditRelationship = async (req, res) => {
     try {
         let relationship = await Relationship.findOne({
             where: {
-                relationshipContactID: data.relationshipContactID,
-                localDatabaseID: data.localDatabaseID, relationshipCreator: data.relationshipCreator
+                localDatabaseID: data.localDatabaseID,
+                relationshipCreator: data.relationshipCreator
             }});
         await relationship.update(data);
         console.log("Relationship Updated");
@@ -57,10 +64,14 @@ exports.patchEditRelationship = async (req, res) => {
 //------------------------------------------------------------Delete
 
 exports.postDeleteRelationship = async (req, res) => {
-  const relationshipId = req.params.id;
+    const data = JSON.parse(req.body.data);
 
     try {
-        let relationship = await Relationship.findByPk(relationshipId);
+        let relationship = await Relationship.findOne({
+            where: {
+                localDatabaseID: data.localDatabaseID,
+                relationshipCreator: data.relationshipCreator
+            }});
         await relationship.destroy();
         res.sendStatus(200);
     } catch (e) {
