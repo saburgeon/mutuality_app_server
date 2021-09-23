@@ -10,13 +10,13 @@ router.get("/:id", characteristicsController.getAllCharacteristics);
 
 //------------------------------------------------------------------------------------POSTS REQUESTS
 
-router.patch("/add",characteristicsController.postAddCharacteristics);
+router.post("/add",characteristicsController.postAddCharacteristics);
 
 //----------------------------------------------------------------------------------PATCH REQUESTS
 
-router.post("/update", characteristicsController.patchEditCharacteristic);
+router.patch("/update", characteristicsController.patchEditCharacteristic);
 
-router.post("/bulkUpdate", characteristicsController.patchEditBulkCharacteristics);
+router.patch("/bulkUpdate", characteristicsController.patchEditBulkCharacteristics);
 
 //----------------------------------------------------------------------------------DELETE REQUESTS
 

@@ -8,7 +8,7 @@ exports.getAllLifeEvents = async (req, res) => {
         let lifeEvents = await LifeEvent.findAll(
             {
                 where: {
-                    lifeEventCreator: data.userUID
+                    lifeEventsCreator: data.userUID
                 }
             }
         );
@@ -36,7 +36,7 @@ exports.getLifeEventByID = async (req, res) => {
 //------------------------------------------------------------Posts
 exports.postAddLifeEvent = (req, res) => {
     const data = JSON.parse(req.body.data);
-
+    console.log(data);
     try {
         LifeEvent.create(data);
         res.sendStatus(200)
@@ -54,7 +54,7 @@ exports.patchEditLifeEvent = async (req, res) => {
             {
                 where: {
                     localDatabaseID: data.localDatabaseID,
-                    lifeEventCreator: data.lifeEventCreator
+                    lifeEventsCreator: data.lifeEventsCreator
                 }
             });
         await lifeEvent.update(data);
@@ -76,7 +76,7 @@ exports.postDeleteLifeEvent = async (req, res) => {
             {
                 where: {
                     localDatabaseID: data.localDatabaseID,
-                    lifeEventCreator: data.lifeEventCreator
+                    lifeEventsCreator: data.lifeEventsCreator
                 }
             });
         await lifeEvent.destroy();

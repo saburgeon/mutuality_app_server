@@ -1,12 +1,12 @@
 const Characteristics = require("../models/characteristics");
 const sequelize = require("../config/db-config");
 const {where} = require("sequelize");
-const { Op } = require("sequelize");
+const {Op} = require("sequelize");
 //--------------------------------------------------------Gets
 
 //Get all Characteristics for user
 exports.getAllCharacteristics = async (req, res) => {
-     const data = JSON.parse(req.body.data);
+    const data = JSON.parse(req.body.data);
     try {
         let characteristics = await Characteristics.findAll(
             {
@@ -54,7 +54,8 @@ exports.patchEditCharacteristic = async (req, res) => {
             where: {
                 localDatabaseID: data.localDatabaseID,
                 characteristicCreator: data.characteristicCreator
-            }});
+            }
+        });
         await characteristic.update(data);
         console.log("Characteristic Updated");
         res.sendStatus(200);
@@ -66,18 +67,18 @@ exports.patchEditCharacteristic = async (req, res) => {
 
 exports.patchEditBulkCharacteristics = async (req, res) => {
     const data = JSON.parse(req.body.data);
-const extra = JSON.parse(req.body.extra);
+    const extra = JSON.parse(req.body.extra);
 
     try {
-        await Characteristics.update({
-            characteristicsCategory: extra.newCategory
+        let test = await Characteristics.update({
+            characteristicCategory: extra.newCategory
         }, {
             where: {
                 characteristicCategory: data.characteristicCategory,
-                localDatabaseID: data.localDatabaseID
+                characteristicCreator: data.characteristicCreator
             }
         });
-
+        console.log(test);
         console.log("Characteristics Updated");
         res.sendStatus(200);
     } catch (e) {
@@ -95,7 +96,8 @@ exports.postDeleteCharacteristic = async (req, res) => {
             where: {
                 localDatabaseID: data.localDatabaseID,
                 characteristicCreator: data.characteristicCreator
-            }});
+            }
+        });
         await characteristic.destroy();
         res.sendStatus(200);
     } catch (e) {
