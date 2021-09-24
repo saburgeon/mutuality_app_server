@@ -18,6 +18,9 @@ const sequelize = require('./config/db-config');
 require("./startup/routes")(app);
 
 const httpServer = http.createServer( app);
+//Join tables
+require("./startup/table_connections")(app);
+
 
 //Sync models
 sequelize.sync().then(result => {

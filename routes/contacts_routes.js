@@ -7,7 +7,7 @@ const contactController = require("../controllers/contacts");
 router.get("/all",  contactController.getAllContacts);
 
 //by id
-router.get("/:id", contactController.getContactByID);
+router.get("/get/:id", contactController.getContactByID);
 
 //--------------------------------------------------------------Posts
 

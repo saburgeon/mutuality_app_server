@@ -1,5 +1,10 @@
 const User = require("../models/user");
 const Characteristics = require("../models/characteristics");
+const Contact = require("../models/contact");
+const Note = require("../models/note");
+const Tag = require("../models/tag");
+const Relationship = require("../models/relationships");
+const LifeEvent = require("../models/life_event");
 
 //--------------------------------------------------------Gets
 
@@ -29,9 +34,35 @@ exports.getUserByUID = async (req, res) => {
         res.sendStatus(404)
         console.log(e)
     }
-
-
 };
+
+
+exports.getAllUserData = async (req, res) => {
+    const UID = req.params.uid;
+
+    try {
+        let user = await User.findOne(
+            {
+                where: {
+                    userUID: UID
+                },
+                include: [
+                    {model: Contact},
+                    {model: Note},
+                    {model: LifeEvent},
+                    {model: Relationship},
+                    {model: Tag},
+                    {model: Event},
+                    {model: Characteristics}
+                ]
+            });
+        res.status(200).send(user);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
+
+}
 
 //------------------------------------------------------------Posts
 exports.postAddUser = (req, res) => {

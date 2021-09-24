@@ -13,6 +13,9 @@ router.get("/all", userController.getAllUsers);
 //get user by id
 router.get("/:id", userController.getUserByUID);
 
+//get all user data
+router.get('/get/all/:id', userController.getAllUserData);
+
 //------------------------------------------------------------Posts
 
 router.post('/add', userController.postAddUser);
