@@ -17,7 +17,6 @@ const Characteristics = sequelize.define('Characteristics', {
     characteristicCreator: Sequelize.STRING,
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
-    localDatabaseID: Sequelize.INTEGER
 
 }, {  timestamps: false});
 

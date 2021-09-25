@@ -5,7 +5,7 @@ const Note = require("../models/note");
 const Tag = require("../models/tag");
 const Relationship = require("../models/relationships");
 const LifeEvent = require("../models/life_event");
-
+const Events = require("../models/event")
 //--------------------------------------------------------Gets
 
 //Get all Users
@@ -20,7 +20,7 @@ exports.getAllUsers = async (req, res) => {
 };
 //Get Users by ID
 exports.getUserByUID = async (req, res) => {
-  const UID = req.params.uid;
+    const UID = req.params.uid;
 
     try {
         let user = await User.findOne(
@@ -36,25 +36,64 @@ exports.getUserByUID = async (req, res) => {
     }
 };
 
-
 exports.getAllUserData = async (req, res) => {
     const UID = req.params.uid;
-
+    console.log(req.params);
     try {
         let user = await User.findOne(
             {
                 where: {
                     userUID: UID
                 },
-                include: [
-                    {model: Contact},
-                    {model: Note},
-                    {model: LifeEvent},
-                    {model: Relationship},
-                    {model: Tag},
-                    {model: Event},
-                    {model: Characteristics}
-                ]
+                include:
+                    [{
+                        model: Contact,
+                        attributes: {
+                            include: [['contactID', 'serverID']],
+                            exclude: ['contactID']
+                        },
+
+                    }, {
+                        model: Note,
+                        attributes: {
+                            include: [['noteID', 'serverID']],
+                            exclude: ['noteID']
+                        }
+                    },
+                        {
+                            model: LifeEvent,
+                            attributes: {
+                                include: [['lifeEventsID',  'serverID']],
+                                exclude: ['lifeEventsID']
+                            }
+                        }, {
+                        model: Relationship,
+                        attributes: {
+                            include: [['relationshipID',  'serverID']],
+                            exclude: ['relationshipID']
+                        }
+                    },
+                        {
+                            model: Tag,
+                            attributes: {
+                                include: [['tagsID', 'serverID']],
+                                exclude: ['tagsID']
+                            }
+                        }, {
+                        model: Events,
+                        attributes: {
+                            include: [['eventID',  'serverID']],
+                            exclude: ['eventID']
+                        }
+                    }, {
+                        model: Characteristics,
+                        attributes: {
+                            include: [['characteristicsID',  'serverID']],
+                            exclude: ['characteristicsID']
+                        }
+                    }]
+
+
             });
         res.status(200).send(user);
     } catch (e) {
@@ -63,6 +102,7 @@ exports.getAllUserData = async (req, res) => {
     }
 
 }
+
 
 //------------------------------------------------------------Posts
 exports.postAddUser = (req, res) => {
@@ -79,7 +119,7 @@ exports.postAddUser = (req, res) => {
 
 //------------------------------------------------------------Patch
 exports.patchEditUser = async (req, res) => {
-  const data = JSON.parse(req.body.data);
+    const data = JSON.parse(req.body.data);
     try {
         let user = await User.findOne(
             {

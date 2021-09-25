@@ -1,4 +1,5 @@
 const Contact = require("../models/contact");
+const Characteristics = require("../models/characteristics");
 
 //--------------------------------------------------------Gets
 
@@ -75,6 +76,25 @@ exports.postDeleteContact = async (req, res) => {
                 localDatabaseID: data.localDatabaseID,
             }});
         await contact.destroy();
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(404)
+        console.log(e)
+    }
+};
+
+
+exports.postBulkDeleteContacts = async (req, res) => {
+    const data = JSON.parse(req.body.data);
+
+    try {
+        let test = await Contact.destroy( {
+            where: {
+                contactID: data
+            }
+        });
+        console.log(test);
+        console.log("Contacts deleted");
         res.sendStatus(200);
     } catch (e) {
         res.sendStatus(404)

@@ -21,4 +21,6 @@ router.patch("/update", contactController.patchEditContact);
 
 router.delete('/delete', contactController.postDeleteContact);
 
+router.delete('/bulkDelete', contactController.postBulkDeleteContacts);
+
 module.exports = router;

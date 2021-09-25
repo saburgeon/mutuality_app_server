@@ -11,10 +11,10 @@ const userController = require("../controllers/users");
 router.get("/all", userController.getAllUsers);
 
 //get user by id
-router.get("/:id", userController.getUserByUID);
+router.get("/:uid", userController.getUserByUID);
 
 //get all user data
-router.get('/get/all/:id', userController.getAllUserData);
+router.get('/get/all/:uid', userController.getAllUserData);
 
 //------------------------------------------------------------Posts
 

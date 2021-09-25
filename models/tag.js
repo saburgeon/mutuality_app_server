@@ -12,11 +12,11 @@ const Tag = sequelize.define('Tags', {
 
     tagsContactID: Sequelize.INTEGER,
     tagsEntry: Sequelize.STRING,
-    creatorUID: Sequelize.STRING,
+
     tagsCreator: Sequelize.STRING,
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
-    localDatabaseID: Sequelize.INTEGER
+
 
 
 }, {  timestamps: false});

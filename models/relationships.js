@@ -18,7 +18,7 @@ const Relationship = sequelize.define('Relationships', {
     relationshipCreator: Sequelize.STRING,
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
-    localDatabaseID: Sequelize.INTEGER
+
 
 
 }, {  timestamps: false});
