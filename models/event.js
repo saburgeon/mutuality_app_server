@@ -5,8 +5,7 @@ const sequelize = require('../config/db-config');
 const Event = sequelize.define('Events', {
 
     eventID: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
     },
@@ -24,6 +23,7 @@ const Event = sequelize.define('Events', {
     eventCreator: Sequelize.STRING,
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
+    deletedAt: Sequelize.STRING
 
 }, {  timestamps: false});
 

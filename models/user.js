@@ -3,9 +3,8 @@ const sequelize = require("../config/db-config");
 
 const User = sequelize.define("Users", {
 
-  userID: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
+  userUID: {
+    type: Sequelize.STRING,
     allowNull: false,
     primaryKey: true,
   },
@@ -18,10 +17,9 @@ const User = sequelize.define("Users", {
   userPhone: Sequelize.STRING,
   verifyFirstUse: Sequelize.INTEGER,
   userFavoritePage: Sequelize.INTEGER,
-  userUID: Sequelize.STRING,
   updatedAt: Sequelize.STRING,
   createdAt: Sequelize.STRING,
-
+  deletedAt: Sequelize.STRING
 
 }, {  timestamps: false});
 

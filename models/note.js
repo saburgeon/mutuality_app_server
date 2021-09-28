@@ -3,9 +3,8 @@ const sequelize = require('../config/db-config');
 
 const Note = sequelize.define('Notes', {
 
-    noteID: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
+    noteID:{
+        type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
     },
@@ -18,8 +17,7 @@ const Note = sequelize.define('Notes', {
     noteTitle: Sequelize.STRING,
     updatedAt: Sequelize.STRING,
     createdAt:Sequelize.STRING,
-    localDatabaseID: Sequelize.INTEGER
-
+deletedAt: Sequelize.STRING
 
 }, {  timestamps: false});
 

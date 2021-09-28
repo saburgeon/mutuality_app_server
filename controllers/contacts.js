@@ -53,8 +53,9 @@ exports.patchEditContact = async (req, res) => {
     try {
         let contact = await Contact.findOne({
             where: {
+                contactID: data.serverID,
                contactCreator: data.contactCreator,
-                localDatabaseID: data.localDatabaseID,
+
             }});
         await contact.update(data);
         console.log("Contact Updated");
@@ -73,7 +74,7 @@ exports.postDeleteContact = async (req, res) => {
         let contact = await Contact.findOne({
             where: {
                 contactCreator: data.contactCreator,
-                localDatabaseID: data.localDatabaseID,
+                contactID: data.serverID,
             }});
         await contact.destroy();
         res.sendStatus(200);

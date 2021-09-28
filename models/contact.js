@@ -4,9 +4,8 @@ const sequelize = require('../config/db-config');
 
 const Contact = sequelize.define('Contacts', {
 
-contactID: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
+contactID:{
+    type: Sequelize.STRING,
     allowNull: false,
     primaryKey: true,
 },
@@ -47,6 +46,7 @@ contactID: {
     createdAt: Sequelize.STRING,
     updatedAt: Sequelize.STRING,
     contactCreator: Sequelize.STRING,
+    deletedAt: Sequelize.STRING,
 
     twitter: Sequelize.STRING,
     instagram: Sequelize.STRING,
@@ -62,7 +62,7 @@ contactID: {
     snapchat: Sequelize.STRING,
     medium: Sequelize.STRING,
     twitch: Sequelize.STRING,
-    localDatabaseID: Sequelize.INTEGER
+
 
 
 }, {  timestamps: false});

@@ -10,6 +10,7 @@ const tagsRoutes = require('../routes/tags_routes');
 const notesRoutes = require('../routes/notes_routes');
 const messagesRoutes = require('../routes/messages_routes');
 const lifeEventsRoutes = require('../routes/life_events_routes');
+const statisticsRoutes = require('../routes/statistics_routes');
 
 module.exports = function(app) {
     app.use(express.json());
@@ -24,4 +25,5 @@ module.exports = function(app) {
     app.use('/notes', notesRoutes);
     app.use('/messages', messagesRoutes);
     app.use('/lifeEvents', lifeEventsRoutes);
+    app.use('/statistics', statisticsRoutes);
 };
