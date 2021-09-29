@@ -51,7 +51,7 @@ exports.patchEditNote = async (req, res) => {
         let note = await Note.findOne(
             {
                 where: {
-                    localDatabaseID: data.localDatabaseID,
+                   noteID: data.noteID,
                     noteCreator: data.noteCreator
                 }
             });
@@ -71,7 +71,7 @@ exports.postDeleteNote = async (req, res) => {
         let note = await Note.findOne(
             {
                 where: {
-                    localDatabaseID: data.localDatabaseID,
+                    noteID: data.noteID,
                     noteCreator: data.noteCreator
                 }
             });

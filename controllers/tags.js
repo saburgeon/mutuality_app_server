@@ -53,7 +53,7 @@ exports.patchEditTag = async (req, res) => {
         let tag = await Tag.findOne(
             {
                 where: {
-                    localDatabaseID: data.localDatabaseID,
+                tagID: data.tagID,
                     tagCreator: data.tagCreator
                 }
             });
@@ -74,7 +74,7 @@ exports.postDeleteTag = async (req, res) => {
         let tag = await Tag.findOne(
             {
                 where: {
-                    localDatabaseID: data.localDatabaseID,
+                    tagID: data.tagID,
                     tagCreator: data.tagCreator
                 }
             });

@@ -54,7 +54,7 @@ exports.patchEditEvent = async (req, res) => {
         let event = await Event.findOne(
             {
                 where: {
-                    localDatabaseID: data.localDatabaseID,
+                    eventID: data.eventID,
                     eventCreator: data.eventCreator
                 }
             });
@@ -75,7 +75,7 @@ exports.postDeleteEvent = async (req, res) => {
         let event = await Event.findOne(
             {
                 where: {
-                    localDatabaseID: data.localDatabaseID,
+                    eventID: data.eventID,
                     eventCreator: data.eventCreator
                 }
             });

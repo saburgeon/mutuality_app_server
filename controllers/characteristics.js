@@ -52,7 +52,7 @@ exports.patchEditCharacteristic = async (req, res) => {
     try {
         let characteristic = await Characteristics.findOne({
             where: {
-                localDatabaseID: data.localDatabaseID,
+               characteristicsID: data.characteristicsID,
                 characteristicCreator: data.characteristicCreator
             }
         });
@@ -94,7 +94,7 @@ exports.postDeleteCharacteristic = async (req, res) => {
     try {
         let characteristic = await Characteristics.findOne({
             where: {
-                localDatabaseID: data.localDatabaseID,
+                characteristicsID: data.characteristicsID,
                 characteristicCreator: data.characteristicCreator
             }
         });

@@ -50,7 +50,7 @@ exports.patchEditRelationship = async (req, res) => {
     try {
         let relationship = await Relationship.findOne({
             where: {
-                localDatabaseID: data.localDatabaseID,
+               relationshipID: data.relationshipID,
                 relationshipCreator: data.relationshipCreator
             }});
         await relationship.update(data);
@@ -69,7 +69,7 @@ exports.postDeleteRelationship = async (req, res) => {
     try {
         let relationship = await Relationship.findOne({
             where: {
-                localDatabaseID: data.localDatabaseID,
+                relationshipID: data.relationshipID,
                 relationshipCreator: data.relationshipCreator
             }});
         await relationship.destroy();

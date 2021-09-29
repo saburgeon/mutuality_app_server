@@ -53,7 +53,7 @@ exports.patchEditLifeEvent = async (req, res) => {
         let lifeEvent = await LifeEvent.findOne(
             {
                 where: {
-                    localDatabaseID: data.localDatabaseID,
+                    lifeEventsID: data.lifeEventsID,
                     lifeEventsCreator: data.lifeEventsCreator
                 }
             });
@@ -75,7 +75,7 @@ exports.postDeleteLifeEvent = async (req, res) => {
         let lifeEvent = await LifeEvent.findOne(
             {
                 where: {
-                    localDatabaseID: data.localDatabaseID,
+                    lifeEventsID: data.lifeEventsID,
                     lifeEventsCreator: data.lifeEventsCreator
                 }
             });
