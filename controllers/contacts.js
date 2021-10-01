@@ -1,5 +1,9 @@
 const Contact = require("../models/contact");
 const Characteristics = require("../models/characteristics");
+const Note = require("../models/note");
+const LifeEvent = require("../models/life_event");
+const Relationship = require("../models/relationships");
+const Tag = require("../models/tag");
 
 //--------------------------------------------------------Gets
 
@@ -88,13 +92,43 @@ exports.postBulkDeleteContacts = async (req, res) => {
     const data = JSON.parse(req.body.data);
 
     try {
-        let test = await Contact.destroy( {
+        await Contact.update({deletedAt: data.timestamp}, {
             where: {
                 contactID: data
             }
         });
-        console.log(test);
-        console.log("Contacts deleted");
+        await Note.update({deletedAt: data.timestamp}, {
+            where: {
+                noteContactID: data
+            }
+        });
+        await Characteristics.update({deletedAt: data.timestamp}, {
+            where: {
+                characteristicsContactID: data
+            }
+        });
+        await Event.update({deletedAt: data.timestamp}, {
+            where: {
+                eventContactID: data
+            }
+        });
+        await LifeEvent.update({deletedAt: data.timestamp}, {
+            where: {
+                lifeEventContactID: data
+            }
+        });
+        await Relationship.update({deletedAt: data.timestamp}, {
+            where: {
+                relationshipContactID: data
+            }
+        });
+        await Tag.update({deletedAt: data.timestamp}, {
+            where: {
+                tagsContactID: data
+            }
+        });
+
+
         res.sendStatus(200);
     } catch (e) {
         res.sendStatus(404)
