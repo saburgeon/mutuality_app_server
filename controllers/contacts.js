@@ -4,6 +4,7 @@ const Note = require("../models/note");
 const LifeEvent = require("../models/life_event");
 const Relationship = require("../models/relationships");
 const Tag = require("../models/tag");
+const Event = require("../models/event");
 
 //--------------------------------------------------------Gets
 
@@ -90,39 +91,41 @@ exports.postDeleteContact = async (req, res) => {
 
 exports.postBulkDeleteContacts = async (req, res) => {
     const data = JSON.parse(req.body.data);
+const timestamp = JSON.parse(req.body.timestamp);
+
 
     try {
-        await Contact.update({deletedAt: data.timestamp}, {
+        await Contact.update({deletedAt: timestamp}, {
             where: {
                 contactID: data
             }
         });
-        await Note.update({deletedAt: data.timestamp}, {
+        await Note.update({deletedAt: timestamp}, {
             where: {
                 noteContactID: data
             }
         });
-        await Characteristics.update({deletedAt: data.timestamp}, {
+        await Characteristics.update({deletedAt: timestamp}, {
             where: {
                 characteristicsContactID: data
             }
         });
-        await Event.update({deletedAt: data.timestamp}, {
+        await Event.update({deletedAt: timestamp}, {
             where: {
                 eventContactID: data
             }
         });
-        await LifeEvent.update({deletedAt: data.timestamp}, {
+        await LifeEvent.update({deletedAt: timestamp}, {
             where: {
                 lifeEventContactID: data
             }
         });
-        await Relationship.update({deletedAt: data.timestamp}, {
+        await Relationship.update({deletedAt: timestamp}, {
             where: {
                 relationshipContactID: data
             }
         });
-        await Tag.update({deletedAt: data.timestamp}, {
+        await Tag.update({deletedAt: timestamp}, {
             where: {
                 tagsContactID: data
             }

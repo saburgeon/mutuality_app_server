@@ -39,6 +39,7 @@ exports.getUserByUID = async (req, res) => {
 exports.getAllUserData = async (req, res) => {
     const UID = req.params.uid;
     console.log(req.params);
+    console.log(req.params);
     try {
         let user = await User.findOne(
             {
@@ -46,55 +47,9 @@ exports.getAllUserData = async (req, res) => {
                     userUID: UID
                 },
                 include:
-                    [{
-                        model: Contact,
-                        attributes: {
-                            include: [['contactID', 'serverID']],
-                            exclude: ['contactID']
-                        },
-
-                    }, {
-                        model: Note,
-                        attributes: {
-                            include: [['noteID', 'serverID']],
-                            exclude: ['noteID']
-                        }
-                    },
-                        {
-                            model: LifeEvent,
-                            attributes: {
-                                include: [['lifeEventsID',  'serverID']],
-                                exclude: ['lifeEventsID']
-                            }
-                        }, {
-                        model: Relationship,
-                        attributes: {
-                            include: [['relationshipID',  'serverID']],
-                            exclude: ['relationshipID']
-                        }
-                    },
-                        {
-                            model: Tag,
-                            attributes: {
-                                include: [['tagsID', 'serverID']],
-                                exclude: ['tagsID']
-                            }
-                        }, {
-                        model: Events,
-                        attributes: {
-                            include: [['eventID',  'serverID']],
-                            exclude: ['eventID']
-                        }
-                    }, {
-                        model: Characteristics,
-                        attributes: {
-                            include: [['characteristicsID',  'serverID']],
-                            exclude: ['characteristicsID']
-                        }
-                    }]
-
-
+                    [ Contact, Note, LifeEvent, Relationship, Tag, Events, Characteristics]
             });
+        console.log(user);
         res.status(200).send(user);
     } catch (e) {
         res.sendStatus(404)
