@@ -28,8 +28,8 @@ jobs:
           cd /etc/servers/mutuality_app_server/mutuality_app_server
           
           echo Git Pulling lastest build
-          sudo -S ${{ secrets.SCRIPT}}
-          echo ${{ secrets.PASSWORD }}
+          echo ${{ secrets.PASSWORD }} | sudo -S ${{ secrets.SCRIPT}}
+          
           
           echo Job's Done!
           exit
