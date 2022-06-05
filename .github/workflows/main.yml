@@ -26,6 +26,6 @@ jobs:
         
     - name: go to folder
       run: |
-        cd /etc/servers/mutuality_app_server/mutuality_app_server
-        sudo git pull
+        ssh armando cd /etc/servers/mutuality_app_server/mutuality_app_server
+        ssh armando sudo git pull
         echo Job's Done!
