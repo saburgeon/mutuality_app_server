@@ -23,9 +23,8 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        
-    - name: go to folder
-      run: |
-        ssh armando cd /etc/servers/mutuality_app_server/mutuality_app_server
-        ssh armando sudo git pull
-        echo Job's Done!
+        script: |
+          cd /etc/servers/mutuality_app_server/mutuality_app_server
+          sudo git pull
+          echo Job's Done!
+          exit
