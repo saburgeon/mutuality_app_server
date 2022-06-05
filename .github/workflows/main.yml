@@ -24,7 +24,11 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         script: |
+          echo Navigating to the server folder
           cd /etc/servers/mutuality_app_server/mutuality_app_server
-          ${{ secrets.PASSWORD }} | sudo -S git pull
+          
+          echo Git Pulling lastest build
+          sudo git pull
+          
           echo Job's Done!
           exit
