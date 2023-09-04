@@ -1,21 +1,22 @@
 const bodyParser = require("body-parser");
 const app = require('express')();
-const cors = require('cors');
 const http = require('http');
-
+require('dotenv').config();
 
 
 const port = 8082 || 8181;
 
-app.use(cors())
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+//
+// //get SQL pool
+ const sequelize = require('./config/db-config');
+//
+// //import all other routes
+ require("./startup/routes")(app);
 
-//get SQL pool
-const sequelize = require('./config/db-config');
 
-//import all other routes
-require("./startup/routes")(app);
 
 const httpServer = http.createServer( app);
 //Join tables

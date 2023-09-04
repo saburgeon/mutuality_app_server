@@ -38,8 +38,6 @@ exports.getUserByUID = async (req, res) => {
 
 exports.getAllUserData = async (req, res) => {
     const UID = req.params.uid;
-    console.log(req.params);
-    console.log(req.params);
     try {
         let user = await User.findOne(
             {

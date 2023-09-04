@@ -18,7 +18,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "mysql2": "^2.3.0",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "sequelize-cockroachdb": "^6.0.5"
   },
   "devDependencies": {
     "prettier": "2.4.1"
